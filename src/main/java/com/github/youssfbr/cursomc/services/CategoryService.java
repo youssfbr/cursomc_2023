@@ -44,7 +44,7 @@ public class CategoryService implements ICategoryService {
     @Transactional(readOnly = true)
     public CategoryDTO findById(Long id) {
         Category entity = findCategoryById(id);
-        return new CategoryDTO(entity);
+        return new CategoryDTO(entity, entity.getProducts());
     }
 
     @Override
