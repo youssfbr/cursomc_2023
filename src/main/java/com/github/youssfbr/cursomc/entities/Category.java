@@ -3,6 +3,8 @@ package com.github.youssfbr.cursomc.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -13,12 +15,12 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
-
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updatedAt;
+    @ManyToMany(mappedBy = "categories")
+    private List<Product> products = new ArrayList<>();
 
     public Category() {
     }
@@ -60,6 +62,10 @@ public class Category {
     @PreUpdate
     private void preUpdate() {
         updatedAt = Instant.now();
+    }
+
+    public List<Product> getProducts() {
+        return products;
     }
 
     @Override
