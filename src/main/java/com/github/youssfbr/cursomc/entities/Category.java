@@ -1,6 +1,8 @@
 package com.github.youssfbr.cursomc.entities;
 
+import com.github.youssfbr.cursomc.dtos.CategoryRequestDTO;
 import jakarta.persistence.*;
+import org.springframework.beans.BeanUtils;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -28,6 +30,10 @@ public class Category {
     public Category(Long id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public Category(CategoryRequestDTO requestDTO) {
+        BeanUtils.copyProperties(requestDTO, this);
     }
 
     public Long getId() {

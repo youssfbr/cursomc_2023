@@ -16,3 +16,9 @@ INSERT INTO tb_state (name) VALUES ('São Paulo');
 INSERT INTO tb_city (name, state_id) VALUES ('Fortaleza', 1);
 INSERT INTO tb_city (name, state_id) VALUES ('São Paulo', 2);
 INSERT INTO tb_city (name, state_id) VALUES ('Campinas', 2);
+
+INSERT INTO tb_clients (name, email, cpf_or_cnpj, client_status) VALUES ('Alisson Youssf', 'alisson@gmail.com', '123456789', 1);
+INSERT INTO tb_phones (phones, client_id) VALUES ('123456789', 1);
+INSERT INTO tb_phones (phones, client_id) VALUES ('123456788', 1);
+INSERT INTO tb_address(public_place, number, complement, district, cep, client_id, city_id) VALUES ('Rua X', '10578', 'Prox a praia', 'Centro', '60000-00', 1, 1);
+INSERT INTO tb_address(public_place, number, complement, district, cep, client_id, city_id) VALUES ('Av. Matos', '105', 'Prox a serra', 'Aldeota', '601400-01', 1, 2);

@@ -1,6 +1,8 @@
 package com.github.youssfbr.cursomc.controllers;
 
 import com.github.youssfbr.cursomc.dtos.CategoryDTO;
+import com.github.youssfbr.cursomc.dtos.CategoryRequestDTO;
+import com.github.youssfbr.cursomc.dtos.CategoryResponseDTO;
 import com.github.youssfbr.cursomc.services.interfaces.ICategoryService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +27,7 @@ public class CategoryController {
 
     @GetMapping
     public List<CategoryDTO> findAll() {
-        return categoryService.findAll();
+        return categoryService.getAll();
     }
 
     @GetMapping("/paged")
@@ -38,18 +40,18 @@ public class CategoryController {
 
         PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
 
-        return categoryService.findAllPaged(pageRequest);
+        return categoryService.getAllPaged(pageRequest);
     }
 
     @GetMapping("/{id}")
-    public CategoryDTO findById(@PathVariable Long id) {
-        return categoryService.findById(id);
+    public CategoryResponseDTO findById(@PathVariable Long id) {
+        return categoryService.getById(id);
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
+    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryRequestDTO requestDTO) {
 
-        dto = categoryService.insert(dto);
+        CategoryDTO dto = categoryService.insert(requestDTO);
 
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

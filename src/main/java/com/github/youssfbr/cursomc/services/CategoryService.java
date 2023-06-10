@@ -1,6 +1,8 @@
 package com.github.youssfbr.cursomc.services;
 
 import com.github.youssfbr.cursomc.dtos.CategoryDTO;
+import com.github.youssfbr.cursomc.dtos.CategoryRequestDTO;
+import com.github.youssfbr.cursomc.dtos.CategoryResponseDTO;
 import com.github.youssfbr.cursomc.entities.Category;
 import com.github.youssfbr.cursomc.repositories.ICategoryRepository;
 import com.github.youssfbr.cursomc.services.exceptions.DatabaseException;
@@ -25,7 +27,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoryDTO> findAll() {
+    public List<CategoryDTO> getAll() {
         return categoryRepository.findAll()
                 .stream()
                 .map(CategoryDTO::new)
@@ -34,7 +36,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<CategoryDTO> findAllPaged(PageRequest pageRequest) {
+    public Page<CategoryDTO> getAllPaged(PageRequest pageRequest) {
         return categoryRepository
                 .findAll(pageRequest)
                 .map(CategoryDTO::new);
@@ -42,19 +44,20 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public CategoryDTO findById(Long id) {
+    public CategoryResponseDTO getById(Long id) {
+
         Category entity = findCategoryById(id);
-        return new CategoryDTO(entity, entity.getProducts());
+
+        return new CategoryResponseDTO(entity);
     }
+
+
 
     @Override
     @Transactional
-    public CategoryDTO insert(CategoryDTO dto) {
+    public CategoryDTO insert(CategoryRequestDTO requestDTO) {
 
-        Category entity = new Category();
-        entity.setName(dto.getName());
-
-        entity = categoryRepository.save(entity);
+        Category entity = categoryRepository.save(new Category(requestDTO));
 
         return new CategoryDTO(entity);
     }
