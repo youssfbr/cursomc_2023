@@ -29,4 +29,8 @@ INSERT INTO tb_payment_credit_card (number_installments, order_id) VALUES (6, 1)
 
 INSERT INTO tb_order (instant, client_id, delivery_address_id) VALUES (TIMESTAMP WITH TIME ZONE '2017-10-10T19:35:00Z', 1, 2);
 INSERT INTO tb_payment (payment_status, order_id) VALUES (1, 2);
-INSERT INTO tb_payment_bill (maturity_date, payment_date, order_id) VALUES ('2017-10-10' ,null, 2);
+INSERT INTO tb_payment_bill (maturity_date, payment_date, order_id) VALUES ('2017-10-10' ,null ,2);
+
+INSERT INTO tb_order_item (discount, price, quantity, order_id, product_id) VALUES (0.0, 2000.0, 1, 1, 1);
+INSERT INTO tb_order_item (discount, price, quantity, order_id, product_id) VALUES (0.0, 80.0, 2, 1, 3);
+INSERT INTO tb_order_item (discount, price, quantity, order_id, product_id) VALUES (100.0, 800.0, 1, 2, 2);

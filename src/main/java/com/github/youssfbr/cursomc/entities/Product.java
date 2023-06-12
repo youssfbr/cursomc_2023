@@ -3,9 +3,7 @@ package com.github.youssfbr.cursomc.entities;
 import jakarta.persistence.*;
 
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_product")
@@ -27,6 +25,9 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new HashSet<>();
 
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> orderItems = new HashSet<>();
+
     public Product() {
     }
 
@@ -37,6 +38,14 @@ public class Product {
         this.price = price;
         this.imgUrl = imgUrl;
         this.date = date;
+    }
+
+    public List<Order> getOrders () {
+        ArrayList<Order> list = new ArrayList<>();
+        for (OrderItem x : orderItems) {
+            list.add(x.getOrder());
+        }
+        return list;
     }
 
     public Long getId() {
@@ -89,6 +98,18 @@ public class Product {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     @Override
