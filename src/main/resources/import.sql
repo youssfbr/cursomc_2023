@@ -22,3 +22,11 @@ INSERT INTO tb_phones (phones, client_id) VALUES ('123456789', 1);
 INSERT INTO tb_phones (phones, client_id) VALUES ('123456788', 1);
 INSERT INTO tb_address(public_place, number, complement, district, cep, client_id, city_id) VALUES ('Rua X', '10578', 'Prox a praia', 'Centro', '60000-00', 1, 1);
 INSERT INTO tb_address(public_place, number, complement, district, cep, client_id, city_id) VALUES ('Av. Matos', '105', 'Prox a serra', 'Aldeota', '601400-01', 1, 2);
+
+INSERT INTO tb_order (instant, client_id, delivery_address_id) VALUES (TIMESTAMP WITH TIME ZONE '2017-09-30T10:32:00Z', 1, 1);
+INSERT INTO tb_payment (payment_status, order_id) VALUES (2, 1);
+INSERT INTO tb_payment_credit_card (number_installments, order_id) VALUES (6, 1);
+
+INSERT INTO tb_order (instant, client_id, delivery_address_id) VALUES (TIMESTAMP WITH TIME ZONE '2017-10-10T19:35:00Z', 1, 2);
+INSERT INTO tb_payment (payment_status, order_id) VALUES (1, 2);
+INSERT INTO tb_payment_bill (maturity_date, payment_date, order_id) VALUES ('2017-10-10' ,null, 2);
