@@ -2,6 +2,7 @@ package com.github.youssfbr.cursomc.services;
 
 import com.github.youssfbr.cursomc.dtos.CategoryDTO;
 import com.github.youssfbr.cursomc.dtos.CategoryRequestDTO;
+import com.github.youssfbr.cursomc.dtos.CategoryResponseAllDTO;
 import com.github.youssfbr.cursomc.dtos.CategoryResponseDTO;
 import com.github.youssfbr.cursomc.entities.Category;
 import com.github.youssfbr.cursomc.repositories.ICategoryRepository;
@@ -27,19 +28,19 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<CategoryDTO> getAll() {
+    public List<CategoryResponseAllDTO> getAll() {
         return categoryRepository.findAll()
                 .stream()
-                .map(CategoryDTO::new)
+                .map(CategoryResponseAllDTO::new)
                 .toList();
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Page<CategoryDTO> getAllPaged(PageRequest pageRequest) {
+    public Page<CategoryResponseAllDTO> getAllPaged(PageRequest pageRequest) {
         return categoryRepository
                 .findAll(pageRequest)
-                .map(CategoryDTO::new);
+                .map(CategoryResponseAllDTO::new);
     }
 
     @Override
@@ -64,10 +65,10 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional
-    public CategoryDTO update(Long id, CategoryDTO dto) {
+    public CategoryDTO update(Long id, CategoryRequestDTO dto) {
 
         Category entity = findCategoryById(id);
-        entity.setName(dto.getName());
+        entity.setName(dto.name());
 
         entity = categoryRepository.save(entity);
 

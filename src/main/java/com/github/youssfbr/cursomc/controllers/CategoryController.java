@@ -2,6 +2,7 @@ package com.github.youssfbr.cursomc.controllers;
 
 import com.github.youssfbr.cursomc.dtos.CategoryDTO;
 import com.github.youssfbr.cursomc.dtos.CategoryRequestDTO;
+import com.github.youssfbr.cursomc.dtos.CategoryResponseAllDTO;
 import com.github.youssfbr.cursomc.dtos.CategoryResponseDTO;
 import com.github.youssfbr.cursomc.services.interfaces.ICategoryService;
 import org.springframework.data.domain.Page;
@@ -26,12 +27,12 @@ public class CategoryController {
     }
 
     @GetMapping
-    public List<CategoryDTO> findAll() {
+    public List<CategoryResponseAllDTO> findAll() {
         return categoryService.getAll();
     }
 
     @GetMapping("/paged")
-    public Page<CategoryDTO> findAllPaged(
+    public Page<CategoryResponseAllDTO> findAllPaged(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "linesPerPage", defaultValue = "12") Integer linesPerPage,
             @RequestParam(value = "direction", defaultValue = "ASC") String direction,
@@ -63,7 +64,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public CategoryDTO update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+    public CategoryDTO update(@PathVariable Long id, @RequestBody CategoryRequestDTO dto) {
         return categoryService.update(id, dto);
     }
 
