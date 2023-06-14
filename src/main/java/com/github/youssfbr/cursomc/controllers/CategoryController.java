@@ -5,6 +5,7 @@ import com.github.youssfbr.cursomc.dtos.CategoryRequestDTO;
 import com.github.youssfbr.cursomc.dtos.CategoryResponseAllDTO;
 import com.github.youssfbr.cursomc.dtos.CategoryResponseDTO;
 import com.github.youssfbr.cursomc.services.interfaces.ICategoryService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -50,7 +51,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryRequestDTO requestDTO) {
+    public ResponseEntity<CategoryDTO> insert(@Valid @RequestBody CategoryRequestDTO requestDTO) {
 
         CategoryDTO dto = categoryService.insert(requestDTO);
 
@@ -64,7 +65,7 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public CategoryDTO update(@PathVariable Long id, @RequestBody CategoryRequestDTO dto) {
+    public CategoryDTO update(@PathVariable Long id, @Valid @RequestBody CategoryRequestDTO dto) {
         return categoryService.update(id, dto);
     }
 
