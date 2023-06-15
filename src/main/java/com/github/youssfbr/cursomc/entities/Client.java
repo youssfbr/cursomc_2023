@@ -72,8 +72,8 @@ public class Client {
         return ClientStatus.toEnum(clientStatus);
     }
 
-    public void setClientStatus(ClientStatus clientStatus) {
-        this.clientStatus = clientStatus.getId();
+    public void setClientStatus(Integer clientStatus) {
+        this.clientStatus = clientStatus;
     }
 
     public List<Address> getAddresses() {

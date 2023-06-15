@@ -4,10 +4,23 @@ import com.github.youssfbr.cursomc.entities.Client;
 
 import java.util.List;
 
-public record ClientResponseDTO(Long id, String name, String email, String cpfOrCnpj, String clientStatus, List<AddressResponseDTO> addresses, List<PhoneResponseDTO> phones) {
+public record ClientResponseDTO(
+        Long id,
+        String name,
+        String email,
+        String cpfOrCnpj,
+        String clientStatus,
+        List<AddressResponseDTO> addresses,
+        List<PhoneResponseDTO> phones) {
 
     public ClientResponseDTO(Client client) {
-        this(client.getId(), client.getName(), client.getEmail(), client.getCpfOrCnpj(), client.getClientStatus().getDescription(),
+        this(
+                client.getId(),
+                client.getName(),
+                client.getEmail(),
+                client.getCpfOrCnpj(),
+           client.getClientStatus().getDescription(),
+           //     client.getClientStatus().getDescription() = 1, // ) ? null : , client.getClientStatus().getDescription()
 
                 client.getAddresses()
                         .stream()
