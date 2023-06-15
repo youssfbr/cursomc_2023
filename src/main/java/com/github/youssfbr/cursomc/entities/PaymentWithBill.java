@@ -3,10 +3,12 @@ package com.github.youssfbr.cursomc.entities;
 import com.github.youssfbr.cursomc.entities.enums.PaymentStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDate;
 
 @Entity
+@EqualsAndHashCode(of = "id")
 @Table(name = "tb_payment_bill")
 public class PaymentWithBill extends Payment {
     private LocalDate maturityDate;
