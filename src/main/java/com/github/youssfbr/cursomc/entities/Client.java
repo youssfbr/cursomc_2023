@@ -1,7 +1,9 @@
 package com.github.youssfbr.cursomc.entities;
 
+import com.github.youssfbr.cursomc.dtos.ClienteRequestNewDTO;
 import com.github.youssfbr.cursomc.entities.enums.ClientStatus;
 import jakarta.persistence.*;
+import org.springframework.beans.BeanUtils;
 
 import java.util.*;
 
@@ -16,7 +18,7 @@ public class Client {
     private String email;
     private String cpfOrCnpj;
     private Integer clientStatus;
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Address> addresses = new ArrayList<>();
     @ElementCollection
     @CollectionTable(name = "tb_phones")
@@ -34,6 +36,10 @@ public class Client {
         this.email = email;
         this.cpfOrCnpj = cpfOrCnpj;
         this.clientStatus = clientStatus.getId();
+    }
+
+    public Client(ClienteRequestNewDTO data) {
+        BeanUtils.copyProperties(data, this);
     }
 
     public Long getId() {

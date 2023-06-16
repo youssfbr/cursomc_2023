@@ -42,6 +42,11 @@ public class ClientController {
         return clientService.getById(id);
     }
 
+    @PostMapping
+    public ClientResponseDTO novo(@RequestBody ClienteRequestNewDTO dto) {
+         return clientService.create(dto);
+    }
+
     @PutMapping("/{id}")
     public ClientResponseDTO update(@PathVariable Long id, @Valid @RequestBody ClientRequestDTO dto) {
         return clientService.update(id, dto);

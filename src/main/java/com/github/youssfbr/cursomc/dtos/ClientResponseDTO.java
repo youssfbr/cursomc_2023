@@ -19,8 +19,7 @@ public record ClientResponseDTO(
                 client.getName(),
                 client.getEmail(),
                 client.getCpfOrCnpj(),
-           client.getClientStatus().getDescription(),
-           //     client.getClientStatus().getDescription() = 1, // ) ? null : , client.getClientStatus().getDescription()
+                client.getClientStatus().getDescription(),
 
                 client.getAddresses()
                         .stream()

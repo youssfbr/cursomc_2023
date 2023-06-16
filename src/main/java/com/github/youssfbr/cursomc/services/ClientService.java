@@ -1,13 +1,14 @@
 package com.github.youssfbr.cursomc.services;
 
-import com.github.youssfbr.cursomc.dtos.ClientRequestDTO;
-import com.github.youssfbr.cursomc.dtos.ClientResponseAllDTO;
-import com.github.youssfbr.cursomc.dtos.ClientResponseDTO;
+import com.github.youssfbr.cursomc.dtos.*;
+import com.github.youssfbr.cursomc.entities.Address;
 import com.github.youssfbr.cursomc.entities.Client;
+import com.github.youssfbr.cursomc.repositories.ICityRepository;
 import com.github.youssfbr.cursomc.repositories.IClientRepository;
 import com.github.youssfbr.cursomc.services.exceptions.DatabaseException;
 import com.github.youssfbr.cursomc.services.exceptions.ResourceNotFoundException;
 import com.github.youssfbr.cursomc.services.interfaces.IClientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -18,13 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class ClientService implements IClientService {
 
-    private IClientRepository clientRepository;
-
-    public ClientService(IClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+    private final IClientRepository clientRepository;
+    private final ICityRepository cityRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -47,6 +46,32 @@ public class ClientService implements IClientService {
     public ClientResponseDTO getById(Long id) {
         Client entity = findById(id);
         return new ClientResponseDTO(entity);
+    }
+
+    @Override
+    @Transactional
+    public ClientResponseDTO create(ClienteRequestNewDTO dto) {
+
+        Client client = new Client(dto);
+        Client clientSaved = clientRepository.save(client);
+
+        for (AddressRequestDTO y : dto.addresses()) {
+
+            var city = cityRepository.findById(y.city().id())
+                    .orElseThrow(() -> new ResourceNotFoundException("Cidade não encontrada"));
+
+            var address = new Address(y);
+            address.setCity(city);
+            address.setClient(clientSaved);
+
+            clientSaved.getAddresses().add(address);
+        }
+
+        dto.phones().stream().map(ph -> clientSaved.getPhones().add(ph.phone())).toList();
+
+        clientRepository.save(clientSaved);
+
+        return new ClientResponseDTO(clientSaved);
     }
 
     @Override

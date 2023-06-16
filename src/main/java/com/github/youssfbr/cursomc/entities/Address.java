@@ -1,6 +1,8 @@
 package com.github.youssfbr.cursomc.entities;
 
+import com.github.youssfbr.cursomc.dtos.AddressRequestDTO;
 import jakarta.persistence.*;
+import org.springframework.beans.BeanUtils;
 
 import java.util.Objects;
 
@@ -33,6 +35,10 @@ public class Address {
         this.cep = cep;
         this.client = client;
         this.city = city;
+    }
+
+    public Address(AddressRequestDTO data) {
+        BeanUtils.copyProperties(data, this);
     }
 
     public Long getId() {

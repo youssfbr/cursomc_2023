@@ -11,6 +11,7 @@ public interface IClientService {
     List<ClientResponseAllDTO> getAll();
     Page<ClientResponseAllDTO> getAllPaged(PageRequest pageRequest);
     ClientResponseDTO getById(Long id);
+    ClientResponseDTO create(ClienteRequestNewDTO dto);
     ClientResponseDTO update(Long id, ClientRequestDTO dto);
     void delete(Long id);
 
